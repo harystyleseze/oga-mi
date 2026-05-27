@@ -32,7 +32,6 @@ Serving HTTP on :: port 8765 (http://[::]:8765/) ...
 ### Step 4: Open in browser
 
 Open Chrome or Safari and go to:
-
 ```
 http://localhost:8765
 ```
