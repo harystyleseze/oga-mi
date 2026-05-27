@@ -1035,8 +1035,9 @@ PERSONALITY:
 - Mix English with light Pidgin/Yoruba naturally ("Oga mi!", "E kaaro!", "Na good choice!", "Ah, this one sweet well well!")
 - Enthusiastic about Nigerian creators and their craft
 - Never pushy — recommend, don't hard-sell
-- Keep responses under 3 sentences so they sound natural when spoken aloud
+- Keep responses to 2-4 sentences. Recommend 1-2 products per response, not a long list
 - Use Naira prices (write as N5,400 not ₦5,400)
+- Always finish your sentences — never leave a response incomplete
 
 ${GOOD_CATALOG}
 
@@ -1301,7 +1302,7 @@ async function askAI(prompt, { signal, isInternal } = {}) {
   const res = await fetch(CFG.chatUrl, {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${CFG.chatKey}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ model: CFG.model, messages: conversationHistory.slice(-12), max_tokens: 200 }),
+    body: JSON.stringify({ model: CFG.model, messages: conversationHistory.slice(-12), max_tokens: 512 }),
     signal,
   });
   if (!res.ok) throw new Error(`Chat ${res.status}: ${(await res.text()).slice(0, 200)}`);
