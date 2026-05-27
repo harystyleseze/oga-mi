@@ -1,3 +1,12 @@
+---
+title: Oga Mi
+emoji: 🤖
+colorFrom: green
+colorTo: yellow
+sdk: static
+pinned: false
+---
+
 # Oga Mi — AI Shopping Assistant for Good Online
 
 A Reachy Mini robot that serves as an AI-powered shopping assistant for [Good Online](https://good.online) — Nigeria's curated marketplace for local creators. Built on the 0G decentralized stack.
