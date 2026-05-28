@@ -5,6 +5,8 @@ colorFrom: green
 colorTo: yellow
 sdk: static
 pinned: false
+tags:
+  - 0g-hackathon
 ---
 
 # Oga Mi — AI Shopping Assistant for Good Online
