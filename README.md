@@ -1,33 +1,58 @@
----
-title: Oga Mi
-emoji: 🤖
-colorFrom: green
-colorTo: yellow
-sdk: static
-pinned: false
-tags:
-  - 0g-hackathon
----
-
 # Oga Mi — AI Shopping Assistant for Good Online
 
-A Reachy Mini robot that serves as an AI-powered shopping assistant for [Good Online](https://good.online) — Nigeria's curated marketplace for local creators. Built on the 0G decentralized stack.
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-HuggingFace%20Space-blue?logo=huggingface)](https://huggingface.co/spaces/devharystyles/oga-mi)
+[![0G Hackathon](https://img.shields.io/badge/0G%20Onsite%20Lagos-Robotics%20%C3%97%20AI-green)](https://0g.ai)
+[![Static Web App](https://img.shields.io/badge/App-Static%20HTML-orange)](https://devharystyles-oga-mi.static.hf.space/)
+
+A Reachy Mini robot that serves as an AI-powered shopping assistant for [Good Online](https://good.online) — Nigeria's curated marketplace for local creators. Built on the 0G decentralized stack (compute, storage, chain).
 
 ---
 
-## How to Run (Step by Step)
+## Live Demo
 
-### Step 1: Open your terminal
+**[https://devharystyles-oga-mi.static.hf.space/](https://devharystyles-oga-mi.static.hf.space/)**
 
-On macOS: press `Cmd + Space`, type `Terminal`, press Enter.
+Open in any browser, enter your 0G API key, and start chatting with Oga Mi. No install needed — it's a static web app. You can use the built-in 3D robot simulator without any hardware.
 
-### Step 2: Navigate to the project
+---
+
+## What it does
+
+- **Chat** with a robot that knows the entire Good Online catalog (50+ creators, real prices in Naira)
+- **Voice input** via 0G Whisper speech-to-text (push-to-talk)
+- **Customer memory** — remembers returning visitors and preferences across sessions
+- **On-chain receipts** — interaction logs minted to 0G Chain testnet (optional)
+- **Expressive robot** — waves, nods, dances, thinks with head + antenna movements
+- **3D simulator** — develop and demo without physical hardware
+
+---
+
+## 0G Stack
+
+| Service | What | Endpoint |
+|---------|------|----------|
+| Compute (Chat) | GLM-5 FP8 / DeepSeek / Qwen | `compute-network-1.integratenetwork.work` |
+| Compute (STT) | Whisper large-v3 | `compute-network-16.integratenetwork.work` |
+| Storage | Customer profiles + chat history | localStorage (0G KV proxy) |
+| Chain | Interaction receipts on-chain | 0G testnet · Chain ID 16602 · `evmrpc-testnet.0g.ai` |
+
+**API mode: 0G Direct** — per-provider `app-sk-...` keys. The Router `sk-...` keys do NOT work from the browser (CORS blocked).
+
+---
+
+## Quick Start
+
+### 1. Clone the repo
 
 ```bash
-cd /Users/mac/OG/ogami
+git clone https://github.com/harystyleseze/oga-mi
 ```
 
-### Step 3: Start the local server
+```bash
+cd oga-mi
+```
+
+### 2. Start the local server
 
 ```bash
 python3 -m http.server 8765
@@ -40,59 +65,51 @@ Serving HTTP on :: port 8765 (http://[::]:8765/) ...
 
 **Leave this terminal open. Do not close it — it's your server.**
 
-### Step 4: Open in browser
+### 3. Open in browser
 
-Open Chrome or Safari and go to:
 ```
 http://localhost:8765
 ```
 
-### Step 5: Configure and start
+### 4. Configure and start
 
-1. **Your Name** — enter your name (Oga Mi will greet you by name)
-2. **Chat API Key** — paste your `app-sk-...` key (see "Getting API Keys" below)
-3. **Chat Endpoint** — leave as `compute-network-1` (default)
-4. **Model** — leave as `GLM-5 FP8` (default)
-5. **Robot** — select `3D Simulator` for testing (or `Live Robot` if hardware is connected)
-6. Click **Start Oga Mi**
+| Field | What to enter |
+|-------|--------------|
+| Your Name | Your name — Oga Mi greets you by name |
+| Chat API Key | Your `app-sk-...` key (see below) |
+| Chat Endpoint | `compute-network-1` (default) |
+| Model | `GLM-5 FP8` (default) |
+| Robot | `3D Simulator` for testing · `Live Robot` if hardware is connected |
 
-### To stop the server
+Click **Start Oga Mi**.
 
-Press `Ctrl + C` in the terminal where the server is running.
+### 5. Stop / restart
 
-### To restart after stopping
+Press `Ctrl+C` in the server terminal to stop. To restart:
 
 ```bash
-cd /Users/mac/OG/ogami && python3 -m http.server 8765
+cd oga-mi && python3 -m http.server 8765
 ```
 
 ---
 
 ## Getting Your 0G API Keys (Direct Mode)
 
-The app uses 0G Direct mode — per-provider `app-sk-...` keys. The Router `sk-...` keys do NOT work from the browser (CORS blocked).
-
 ### Chat key (required)
 
 1. Go to [pc.0g.ai](https://pc.0g.ai) and connect your wallet
 2. **Switch to Advanced mode** (toggle at the top of the page)
-3. Go to **Playground** → browse **AI Models**
+3. Go to **Playground** → **AI Models**
 4. Find `zai-org/GLM-5-FP8` → click **Use** → click **Fund** → deposit 1 0G
-5. Go to **API Reference** section for that provider
-6. Click to **mint a key** → you get `app-sk-...`
-7. Copy it — this is your **Chat API Key**
+5. Go to **API Reference** for that provider → click to **mint a key** → copy the `app-sk-...` token
 
-> Free testnet tokens: [faucet.0g.ai](https://faucet.0g.ai) (0.1 0G/day)
+> Free testnet tokens: [faucet.0g.ai](https://faucet.0g.ai) — 0.1 0G/day
 
-### Whisper key (optional — enables voice)
+### Whisper key (optional — enables voice input)
 
-Same flow but for `openai/whisper-large-v3`:
-1. Fund the whisper provider separately (it's a different provider)
-2. Mint its own `app-sk-...` key
-3. Paste in **Advanced** → **Whisper API Key**
-4. Its endpoint is `compute-network-16` (pre-configured)
+Same flow but for the `openai/whisper-large-v3` provider (it's a separate sub-account). Its endpoint is `compute-network-16` and is pre-filled in the Advanced settings panel.
 
-### Smoke test your key (optional)
+### Smoke test your key
 
 ```bash
 curl -sS https://compute-network-1.integratenetwork.work/v1/proxy/chat/completions \
@@ -105,72 +122,89 @@ curl -sS https://compute-network-1.integratenetwork.work/v1/proxy/chat/completio
 
 ---
 
-## 0G Integration
+## Configuration Reference
 
-| Service | What | Endpoint |
-|---------|------|----------|
-| Compute (Chat) | GLM-5 / DeepSeek / Qwen | `compute-network-1.integratenetwork.work` |
-| Compute (STT) | Whisper large-v3 | `compute-network-16.integratenetwork.work` |
-| Storage | Customer profiles + history | localStorage (0G KV proxy) |
-| Chain | Interaction receipts | 0G testnet (Chain ID 16602) |
+| Setting | Required | Default | Description |
+|---------|----------|---------|-------------|
+| Your Name | Yes | — | Used in greeting and stored in customer memory |
+| Chat API Key | Yes | — | `app-sk-...` from pc.0g.ai Advanced mode |
+| Chat Endpoint | Yes | `compute-network-1` | The compute-network host for your chat provider |
+| Model | Yes | `zai-org/GLM-5-FP8` | LLM model identifier (must match provider) |
+| Robot | Yes | `3D Simulator` | `3D Simulator` or `Live Robot` (WebRTC) |
+| Whisper Key | No | — | `app-sk-...` for Whisper provider — enables voice |
+| 0G Chain Key | No | — | Private key for logging receipts on 0G testnet |
+
+All credentials are stored in `sessionStorage` only — never sent anywhere except the 0G endpoints you configure.
 
 ---
 
-## Publish to Hugging Face
+## Deploy to Hugging Face
 
-### Step 1: Create a Static Space
+The live app is already deployed at:
+**[https://huggingface.co/spaces/devharystyles/oga-mi](https://huggingface.co/spaces/devharystyles/oga-mi)**
+
+To deploy your own fork:
+
+### 1. Create a Static Space
 
 Go to [huggingface.co/new-space](https://huggingface.co/new-space):
 - **SDK**: Static
-- **Name**: `oga-mi`
+- **Name**: `oga-mi` (or any name)
 - **Visibility**: Public
 
-### Step 2: Push your code
+### 2. Add a remote and push
 
 ```bash
-cd /Users/mac/OG/ogami
-git add index.html sim.js README.md CLAUDE.md AGENTS.md .gitignore
-git commit -m "Oga Mi: AI shopping assistant for Good Online"
-git remote add hf https://huggingface.co/spaces/YOUR_USERNAME/oga-mi
+git remote add hf https://huggingface.co/spaces/YOUR_HF_USERNAME/oga-mi
+```
+
+```bash
 git push hf main
 ```
 
-Replace `YOUR_USERNAME` with your HuggingFace username.
+### 3. Your live app URL
 
-### Step 3: Access your live app
+```
+https://YOUR_HF_USERNAME-oga-mi.static.hf.space/
+```
 
-Your app is at: `https://YOUR_USERNAME-oga-mi.static.hf.space/`
+> The HF Space README must have `sdk: static` and `app_file: index.html` in its YAML frontmatter. This repo's README does not include that frontmatter — add it when creating the Space's own README, or copy the format from the [deployed Space](https://huggingface.co/spaces/devharystyles/oga-mi/raw/main/README.md).
 
 ---
 
-## Features
+## Project Structure
 
-- **Chat** with a robot that knows the entire Good Online catalog (50+ creators, real prices)
-- **Voice input** via 0G Whisper speech-to-text
-- **Customer memory** — remembers returning visitors and preferences
-- **On-chain receipts** — interaction logs on 0G Chain testnet
-- **Expressive robot** — waves, nods, dances, thinks with head + antenna movements
-- **3D simulator** — develop without hardware
+```
+oga-mi/
+├── index.html   Complete app — UI, chat, voice, animations, all 0G integrations (single file, zero build)
+├── sim.js       3D Reachy Mini simulator (Three.js + URDF loader)
+├── AGENTS.md    Portable agent guidance (conventions for AI coding agents)
+├── CLAUDE.md    Claude Code-specific workflow
+└── README.md    This file
+```
 
-## Files
+No build step. No npm. No bundler. All dependencies loaded via CDN.
 
-- `index.html` — Complete app (single file, zero build step)
-- `sim.js` — 3D Reachy Mini simulator
-- `CLAUDE.md` — Claude Code project instructions
-- `AGENTS.md` — Portable agent guidance
-- `README.md` — This file
+---
 
 ## Troubleshooting
 
 | Problem | Fix |
 |---------|-----|
-| "Key verification failed — Failed to fetch" | You're using a Router `sk-...` key. You need a Direct `app-sk-...` key from Advanced mode on pc.0g.ai |
-| "Key verification failed — 400" | Wrong key for this endpoint. Make sure the key matches the provider on the selected compute-network |
-| Page won't load | Is the server running? Run `python3 -m http.server 8765` in terminal |
-| Blank page | Open browser DevTools (F12) → Console tab → check for errors |
-| Robot doesn't move | Make sure you selected 3D Simulator in setup |
-| Voice doesn't work | You need a separate Whisper `app-sk-...` key in Advanced settings |
+| "Key verification failed — Failed to fetch" | You have a Router `sk-...` key. You need a Direct `app-sk-...` key from Advanced mode on pc.0g.ai |
+| "Key verification failed — 400" | Wrong key for this endpoint — key must match the provider on the selected `compute-network` |
+| Page won't load | Is the server running? Run `python3 -m http.server 8765` |
+| Blank page | Open DevTools (F12) → Console tab — check for errors |
+| Robot doesn't move | Make sure `3D Simulator` is selected in setup |
+| Voice doesn't work | You need a separate Whisper `app-sk-...` key in the Advanced settings panel |
+| Can't connect to Live Robot | Confirm you're on the same Wi-Fi as the robot; use the IP if `reachy-mini.local` doesn't resolve |
+
+---
 
 ## Built for
 
-0G Onsite Lagos Hackathon (May 27-28, 2026) — Robotics x AI Track
+**0G Onsite Lagos Hackathon** — May 27–28, 2026 · Robotics × AI Track
+
+- Robot: [Reachy Mini](https://github.com/pollen-robotics/reachy_mini) by Pollen Robotics
+- Compute / Storage / Chain: [0G Network](https://0g.ai)
+- Marketplace: [Good Online](https://good.online)

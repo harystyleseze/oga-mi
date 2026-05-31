@@ -7,8 +7,8 @@ Guidance for AI coding agents working on this project.
 **Oga Mi** is an AI shopping assistant robot for [Good Online](https://good.online) — Nigeria's curated marketplace for 50+ local creators. Built on **Reachy Mini** + **0G decentralized stack** for the 0G Onsite Lagos Hackathon.
 
 - **Path**: JS / Static Web App (zero build step)
-- **API mode**: 0G Router (`router-api.0g.ai`, single `sk-...` key)
-- **Deployment**: HuggingFace Static Space
+- **API mode**: 0G Direct (per-provider `app-sk-...` keys)
+- **Deployment**: HuggingFace Static Space — https://huggingface.co/spaces/devharystyles/oga-mi
 
 ## Files
 
@@ -18,24 +18,27 @@ Guidance for AI coding agents working on this project.
 | `sim.js` | 3D Reachy Mini simulator (Three.js + URDF) — do not modify |
 | `CLAUDE.md` | Claude Code-specific workflow |
 | `AGENTS.md` | This file — portable agent guidance |
-| `README.md` | Quick start |
+| `README.md` | Setup guide and feature docs |
 
-## 0G Router API (NOT Direct mode)
+## 0G Direct API
 
-This project uses the **0G Router**, not Direct mode. Key differences:
+This project uses **0G Direct mode** — per-provider `app-sk-...` keys, not the Router.
 
-| | Router (this project) | Direct (old mode) |
-|---|---|---|
-| Endpoint | `router-api.0g.ai/v1/...` | `compute-network-N.integratenetwork.work/v1/proxy/...` |
-| Key format | `sk-...` | `app-sk-...` |
-| Keys needed | **One** for all services | One **per provider** |
-| Balance | Single account | Per-provider sub-accounts |
-| TEE | `verify_tee: true` in body | `verify_tee` in body |
+| | Direct mode (this project) |
+|---|---|
+| Endpoint | `compute-network-N.integratenetwork.work/v1/proxy/...` |
+| Key format | `app-sk-...` |
+| Keys needed | One per provider (chat, whisper are separate) |
+| Balance | Per-provider sub-accounts funded at pc.0g.ai |
 
 ### Endpoints used
-- Chat: `POST https://router-api.0g.ai/v1/chat/completions`
-- Whisper STT: `POST https://router-api.0g.ai/v1/audio/transcriptions`
-- Models: `GET https://router-api.0g.ai/v1/models`
+
+- Chat: `POST https://compute-network-1.integratenetwork.work/v1/proxy/chat/completions`
+- Whisper STT: `POST https://compute-network-16.integratenetwork.work/v1/proxy/audio/transcriptions`
+
+### Why not Router mode?
+
+The 0G Router (`router-api.0g.ai`, `sk-...` keys) is blocked by CORS from browsers. Direct mode endpoints support CORS and work from static web apps.
 
 ## SDK conventions
 

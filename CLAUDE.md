@@ -28,9 +28,9 @@
 ## Smoke test keys
 
 ```bash
-curl -sS https://router-api.0g.ai/v1/chat/completions \
+curl -sS https://compute-network-1.integratenetwork.work/v1/proxy/chat/completions \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer sk-YOUR_KEY" \
+  -H "Authorization: Bearer app-sk-YOUR_KEY" \
   -d '{"model":"zai-org/GLM-5-FP8","messages":[{"role":"user","content":"hi"}],"max_tokens":5}'
 ```
 
