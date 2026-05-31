@@ -198,13 +198,3 @@ No build step. No npm. No bundler. All dependencies loaded via CDN.
 | Robot doesn't move | Make sure `3D Simulator` is selected in setup |
 | Voice doesn't work | You need a separate Whisper `app-sk-...` key in the Advanced settings panel |
 | Can't connect to Live Robot | Confirm you're on the same Wi-Fi as the robot; use the IP if `reachy-mini.local` doesn't resolve |
-
----
-
-## Built for
-
-**0G Onsite Lagos Hackathon** — May 27–28, 2026 · Robotics × AI Track
-
-- Robot: [Reachy Mini](https://github.com/pollen-robotics/reachy_mini) by Pollen Robotics
-- Compute / Storage / Chain: [0G Network](https://0g.ai)
-- Marketplace: [Good Online](https://good.online)
