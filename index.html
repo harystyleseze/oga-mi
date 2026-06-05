@@ -68,6 +68,7 @@ body {
   background: var(--cream);
   color: var(--fg-1);
   height: 100vh;
+  height: 100dvh; /* mobile-safe — accounts for browser chrome */
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
 }
@@ -78,6 +79,7 @@ body {
   grid-template-columns: 360px 1fr 320px;
   grid-template-rows: auto 1fr;
   height: 100vh;
+  height: 100dvh; /* mobile-safe — accounts for browser chrome */
   max-width: var(--content-max);
   margin: 0 auto;
   opacity: 0;
@@ -594,11 +596,11 @@ body {
   inset: 0;
   z-index: 1000;
   display: flex;
-  align-items: center;
-  justify-content: center;
   background: rgba(21,19,15,0.5);
   backdrop-filter: blur(20px);
   animation: overlayIn 0.4s var(--ease-default);
+  overflow-y: auto;
+  padding: var(--sp-6) var(--sp-4);
 }
 
 #setup.hidden { display: none; }
@@ -606,8 +608,10 @@ body {
 @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
 
 .setup-card {
-  width: 90%;
+  width: 100%;
   max-width: 460px;
+  min-width: 0; /* allow shrink below select option intrinsic width on narrow screens */
+  margin: auto; /* centers when shorter than viewport, scrolls when taller */
   background: var(--paper);
   border-radius: var(--radius-md);
   padding: 40px 36px 32px;
@@ -684,6 +688,8 @@ body {
 
 .field-group select {
   cursor: pointer;
+  min-width: 0;
+  text-overflow: ellipsis;
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%238A8170' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 12px center;
@@ -749,6 +755,15 @@ body {
   .ogm-conversation { border-left: none; border-right: none; border-top: 1px solid var(--border-1); }
   .ogm-side { display: none; }
   .ogm-services { display: none; }
+}
+
+@media (max-width: 480px) {
+  #setup { padding: var(--sp-3); }
+  .setup-card { padding: 28px 20px 24px; }
+  .setup-card h2 { font-size: 30px; }
+  .setup-card .setup-subtitle { margin-bottom: 20px; }
+  .ogm-shell { grid-template-rows: auto 180px 1fr; }
+  .ogm-topbar { padding: 10px var(--sp-4); }
 }
 </style>
 </head>
